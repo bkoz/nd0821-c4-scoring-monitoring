@@ -32,7 +32,7 @@ def merge_multiple_dataframe() -> None:
     logging.debug(f"filenames: {filenames}")
 
     # Create record keeping file.
-    outputlocation='ingestedfiles.txt'
+    outputlocation = 'ingestedfiles.txt'
     file_handle = open(outputlocation, 'w')
 
     for each_filename in filenames:
@@ -41,12 +41,14 @@ def merge_multiple_dataframe() -> None:
             file_path = f"{input_folder_path}/{each_filename}"
             logging.debug(f"Reading filename: {file_path}")
             currentdf = pd.read_csv(file_path)
-            
+
             # Perform record keeping of each file read.
-            dateTimeObj=datetime.now()
-            thetimenow=str(dateTimeObj.year)+ '/'+str(dateTimeObj.month)+\
-                            '/'+str(dateTimeObj.day)
-            allrecords=[input_folder_path, each_filename, len(currentdf.index), thetimenow]
+            dateTimeObj = datetime.now()
+            thetimenow = str(dateTimeObj.year) + '/' +\
+                str(dateTimeObj.month) + \
+                '/'+str(dateTimeObj.day)
+            allrecords = [input_folder_path, each_filename,
+                          len(currentdf.index), thetimenow]
             logging.debug(f"Writing record keeping data for {each_filename}.")
             logging.debug(f"record = {allrecords}.")
             file_handle.write(str(allrecords))
@@ -77,7 +79,7 @@ def merge_multiple_dataframe() -> None:
     # Save a record of the data ingestion to a file called
     # output_file_path/ingestedfiles.txt
     #
-    
+
 
 if __name__ == '__main__':
     merge_multiple_dataframe()
