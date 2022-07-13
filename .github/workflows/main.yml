@@ -23,5 +23,5 @@ jobs:
         pip install -r requirements.txt
     - name: Analysing the code with flake8
       run: |
-        flake8 project/ingestion.py
+        flake8 project/ingestion.py project/training.py project/scoring.py
 
