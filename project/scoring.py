@@ -2,7 +2,6 @@ import pandas as pd
 import pickle
 import os
 import json
-from sklearn import metrics
 from sklearn.metrics import f1_score
 import logging
 
@@ -54,7 +53,7 @@ def score_model():
     logging.info("Scoring model.")
     predicted = model.predict(X)
     logging.info(f"predict = {predicted}")
-    score = metrics.f1_score(predicted,y)
+    score = f1_score(predicted, y)
     logging.info(f"F1 score = {score}")
     score_file = output_model_dir + "/latestscore.txt"
     try:
