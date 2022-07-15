@@ -1,7 +1,7 @@
 
 import pandas as pd
-import numpy as np
-import timeit
+# import numpy as np
+# import timeit
 import os
 import pickle
 import json
@@ -9,9 +9,9 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-##################Load config.json and get environment variables
-with open('config.json','r') as f:
-    config = json.load(f) 
+# Load config.json and get environment variables
+with open('config.json', 'r') as f:
+    config = json.load(f)
 
 logging.info("=> Configuration")
 dataset_csv_path = os.path.join(config['output_folder_path'])
@@ -22,6 +22,7 @@ prod_deployment_path = os.path.join(config['prod_deployment_path'])
 logging.info(f"prod_deployment_path = {prod_deployment_path}")
 output_folder_path = os.path.join(config['output_folder_path'])
 logging.info(f"output_folder_path = {output_folder_path}")
+
 
 def model_predictions(data_frame: pd.DataFrame) -> list:
     """
@@ -37,8 +38,9 @@ def model_predictions(data_frame: pd.DataFrame) -> list:
     Returns:
          y_predict - A list of predicted values.
     """
-    # Read the deployed model 
-    model_filename = os.getcwd() + "/" + prod_deployment_path + "/trainedmodel.pkl"
+    # Read the deployed model
+    model_filename = os.getcwd() + "/"
+    + prod_deployment_path + "/trainedmodel.pkl"
     logging.debug(f"model_filename = {model_filename}")
 
     try:
@@ -48,16 +50,18 @@ def model_predictions(data_frame: pd.DataFrame) -> list:
         logging.info(f"Loaded {model_filename}")
     except FileNotFoundError:
         logging.error(f"Error loading model file {model_filename}")
-    
-    # Prepare the test dataset. 
-    columns = ['lastmonth_activity', 'lastyear_activity', 'number_of_employees']
-    label = 'exited'
+
+    # Prepare the test dataset.
+    columns = [
+               'lastmonth_activity',
+               'lastyear_activity',
+               'number_of_employees']
 
     X = data_frame.loc[:, columns].values.reshape(-1, 3)
-    y = data_frame[label].values
 
     # Return the calculated predictions.
     return model.predict(X)
+
 
 def dataframe_summary(data_frame: pd.DataFrame) -> list:
     """
@@ -70,7 +74,10 @@ def dataframe_summary(data_frame: pd.DataFrame) -> list:
          summary - A list representing a statistical summary.
     """
     summary = []
-    columns = ['lastmonth_activity', 'lastyear_activity', 'number_of_employees']
+    columns = [
+               'lastmonth_activity',
+               'lastyear_activity',
+               'number_of_employees']
 
     for column in columns:
         summary.append(data_frame[column].mean())
@@ -78,10 +85,13 @@ def dataframe_summary(data_frame: pd.DataFrame) -> list:
         summary.append(data_frame[column].std())
     return summary
 
+
 # Function to get timings
 def execution_time():
     # calculate timing of training.py and ingestion.py
-    return # return a list of 2 timing values in seconds
+    # return a list of 2 timing values in seconds
+    return
+
 
 # Function to check dependencies
 def outdated_packages_list():
@@ -94,12 +104,13 @@ if __name__ == '__main__':
     dataset_filename = os.getcwd() + "/" + test_data_path + "/testdata.csv"
     logging.debug(f"dataset_filename = {dataset_filename}")
     dataset = pd.read_csv(dataset_filename)
-    
+
     y_predict = model_predictions(dataset)
     logging.info(f"y_predict = {y_predict}")
 
     logging.info("=> Dataframe summary")
-    dataset_filename = os.getcwd() + "/" + output_folder_path + "/finaldata.csv"
+    dataset_filename = os.getcwd() + "/"
+    + output_folder_path + "/finaldata.csv"
     logging.debug(f"dataset_filename = {dataset_filename}")
     dataset = pd.read_csv(dataset_filename)
     summary = dataframe_summary(dataset)
@@ -107,12 +118,6 @@ if __name__ == '__main__':
 
     logging.info("=> Execution time")
     execution_time()
-    
+
     logging.info("=> Outdated packages list")
     outdated_packages_list()
-
-
-
-
-
-    

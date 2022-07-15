@@ -24,4 +24,4 @@ jobs:
     - name: Analysing the code with flake8
       run: |
         flake8 project/ingestion.py project/training.py project/scoring.py
-        flake8 project/deployment.py
+        flake8 project/deployment.py project/diagnostics.py
