@@ -15,12 +15,18 @@ def index():
 
 @app.route('/size')
 def size():
+    """
+    http://127.0.0.1:8000/size?filename=testdata.csv
+    """
     filename = request.args.get('filename')
     thedata=readpandas(filename)
     return str(len(thedata.index))
 
 @app.route('/summary')
 def summary():
+    """
+    http://127.0.0.1:8000/summary?filename=testdata.csv
+    """
     filename = request.args.get('filename')
     thedata=readpandas(filename)
     return str(thedata.mean(axis=0))
