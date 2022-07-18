@@ -25,3 +25,4 @@ jobs:
       run: |
         flake8 project/ingestion.py project/training.py project/scoring.py
         flake8 project/deployment.py project/diagnostics.py
+        flake8 project/reporting.py
