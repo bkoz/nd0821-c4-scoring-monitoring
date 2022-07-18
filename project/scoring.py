@@ -17,7 +17,7 @@ output_model_path = os.path.join(config['output_model_path'])
 
 
 # Function for model scoring
-def score_model():
+def score_model() -> dict:
     # this function should take a trained model, load test data
     # and calculate an F1 score for the model relative to
     # the test data it should write the result to the
@@ -65,6 +65,7 @@ def score_model():
         return
 
     logging.info(f"Saving model score to {score_file}")
+    return {'F1': score}
 
 
 if __name__ == "__main__":
