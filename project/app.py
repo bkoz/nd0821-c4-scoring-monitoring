@@ -85,10 +85,14 @@ def diags():
 
     logging.info("=> Generated outdated packages list")
     logging.info("=> This could take a minute.")
-    logging.info(outdated_packages_list())
+    package_info = outdated_packages_list().to_json()
+    logging.info(package_info)
+    logging.info(type(package_info))
     #add return value for all diagnostics
-    return {"summary": summary, "percent_nas": percent_nas,
-            "elapsed_times": elapsed_times
+    return {
+            "summary": summary, "percent_nas": percent_nas,
+            "elapsed_times": elapsed_times,
+            "package_info": package_info
             }
 
 if __name__ == "__main__":    
