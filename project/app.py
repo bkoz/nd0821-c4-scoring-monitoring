@@ -10,6 +10,7 @@ from diagnostics import dataframe_summary
 from diagnostics import missing_data
 from diagnostics import execution_time
 from diagnostics import outdated_packages_list
+from diagnostics import model_predictions
 import json
 import os
 import logging
@@ -31,22 +32,50 @@ prediction_model = None
 
 #######################Prediction Endpoint
 @app.route("/prediction", methods=['POST','OPTIONS'])
-def predict():        
-    #call the prediction function you created in Step 3
-    return #add return value for prediction outputs
+def predict():
+    """
+    How to test with curl:
 
-#######################Scoring Endpoint
+    curl -X POST\
+        --header "Content-Type: application/json"\
+        localhost:8000/prediction\
+        -d '{"filename" : "/testdata/testdata.csv"}'
+
+    """
+    # call the prediction function you created in Step 3
+    logging.info("=> /prediction")
+
+    #
+    # Get the filename from the request body.
+    #
+    user_data = request.get_json()
+    logging.debug(f"user_data = {user_data}")
+    dataset_filename = os.getcwd() + user_data['filename']
+    logging.debug(f"dataset_filename = {dataset_filename}")
+    dataset = pd.read_csv(dataset_filename)
+
+    #
+    # Make and return the prediction.
+    #
+    y_predict = model_predictions(dataset)
+    y_dictionary = {}
+    y_dictionary['y_predict'] = y_predict.tolist()
+    logging.info(f"y_dictionary = {y_dictionary}")
+
+    return json.dumps(y_dictionary)
+
+# Scoring Endpoint
 @app.route("/scoring", methods=['GET','OPTIONS'])
 def scoring() -> dict:
     """
     #check the score of the deployed model
     add return value (a single F1 score number)
     """
-    #check the score of the deployed model
-    #add return value (a single F1 score number)
+    # check the score of the deployed model
+    # add return value (a single F1 score number)
     return score_model()
 
-#######################Summary Statistics Endpoint
+# Summary Statistics Endpoint
 @app.route("/summarystats", methods=['GET','OPTIONS'])
 def summary() -> list:
     """
