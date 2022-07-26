@@ -15,7 +15,7 @@ import json
 import os
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 ######################Set up variables for use in our script
 app = Flask(__name__)
@@ -49,9 +49,9 @@ def predict():
     # Get the filename from the request body.
     #
     user_data = request.get_json()
-    logging.debug(f"user_data = {user_data}")
+    logging.info(f"user_data = {user_data}")
     dataset_filename = os.getcwd() + user_data['filename']
-    logging.debug(f"dataset_filename = {dataset_filename}")
+    logging.info(f"dataset_filename = {dataset_filename}")
     dataset = pd.read_csv(dataset_filename)
 
     #
@@ -123,6 +123,14 @@ def diags():
             "elapsed_times": elapsed_times,
             "package_info": package_info
             }
+
+@app.route("/", methods=['GET','OPTIONS'])
+def status() -> list:
+    """
+    Health check
+    """
+    logging.info("api: GET")
+    return {"API status" : "OK"}
 
 if __name__ == "__main__":    
     app.run(host='0.0.0.0', port=8000, debug=True, threaded=True)

@@ -7,7 +7,7 @@ import pathlib
 import logging
 
 # BK
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 #
 # Load config.json and get input and output paths

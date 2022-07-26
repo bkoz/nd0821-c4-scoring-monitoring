@@ -5,7 +5,7 @@ import json
 from sklearn.metrics import f1_score
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 # Load config.json and get path variables
 with open('config.json', 'r') as f:

@@ -9,7 +9,7 @@ import pickle
 import json
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 # Load config.json and get environment variables
 with open('config.json', 'r') as f:
