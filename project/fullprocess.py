@@ -5,12 +5,52 @@ import scoring
 import deployment
 import diagnostics
 import reporting
+import os
+import json
+import logging
 
-##################Check and read new data
-#first, read ingestedfiles.txt
+# Load config.json and get environment variables
+with open('config.json', 'r') as f:
+    config = json.load(f)
 
-#second, determine whether the source data folder has files that aren't listed in ingestedfiles.txt
+logging.info("fullprocess: => Configuration")
+dataset_csv_path = os.path.join(config['output_folder_path'])
+logging.info(f"fullprocess: dataset_csv_path = {dataset_csv_path}")
+test_data_path = os.path.join(config['test_data_path'])
+logging.info(f"fullprocess: test_data_path = {test_data_path}")
+prod_deployment_path = os.path.join(config['prod_deployment_path'])
+logging.info(f"fullprocess: prod_deployment_path = {prod_deployment_path}")
+output_folder_path = os.path.join(config['output_folder_path'])
+logging.info(f"fullprocess: output_folder_path = {output_folder_path}")
+input_folder_path = os.path.join(config['input_folder_path'])
+logging.info(f"fullprocess: input_folder_path = {input_folder_path}")
+output_model_path = os.path.join(config['output_model_path'])
+logging.info(f"fullprocess: output_model_path = {output_model_path}")
 
+# Check if the filenames in sourcedata differ from 'ingestedfiles.txt'
+# If so, call the ingestion.py script.
+
+# Get this from the global config
+files2=os.listdir(input_folder_path)
+ingested_files_filename = 'ingestedfiles.txt'
+
+try:
+    file_handle=open(ingested_files_filename)
+    files = file_handle.readlines()
+except FileNotFoundError:
+    logging.error(f"Error reading ingested_files_file:\
+        {ingested_files_filename}")
+
+# Strip out \n from each filename.
+original_files = [file.strip() for file in files]
+new_files = [file.strip() for file in files2]
+
+logging.info(f'original_files = {original_files}')
+logging.info(f'new_files = {new_files}')
+logging.info(f'original_files == new_files = {original_files == new_files}')
+    
+# Second, determine whether the source data folder has files that aren't listed in ingestedfiles.txt
+# List the files in the input_folder_path directory
 
 
 ##################Deciding whether to proceed, part 1

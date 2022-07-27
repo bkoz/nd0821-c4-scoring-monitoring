@@ -51,7 +51,8 @@ def merge_multiple_dataframe() -> None:
                           len(currentdf.index), thetimenow]
             logging.debug(f"Writing record keeping data for {each_filename}.")
             logging.debug(f"record = {allrecords}.")
-            file_handle.write(str(allrecords))
+            file_handle.write(each_filename)
+            # file_handle.write(str(allrecords))
             file_handle.write("\n")
             logging.debug(f"element type {type(allrecords)}")
 
