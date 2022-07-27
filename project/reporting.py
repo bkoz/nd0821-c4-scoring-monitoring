@@ -23,6 +23,7 @@ logging.info(f"prod_deployment_path = {prod_deployment_path}")
 output_folder_path = os.path.join(config['output_folder_path'])
 logging.info(f"output_folder_path = {output_folder_path}")
 output_model_path = os.path.join(config['output_model_path'])
+logging.info(f"output_model_path = {output_model_path}")
 
 
 # Function for reporting
@@ -48,6 +49,15 @@ def score_model():
                                   display_labels=[0, 1])
     disp.plot()
     plt.title("Risk Assessment Confusion Matrix")
+    #
+    # create the output_model_path if necessary
+    #
+    try:
+        os.mkdir(os.getcwd() + "/" + output_model_path)
+    except FileExistsError:
+        logging.info(f'{os.getcwd() + "/" + output_model_path} \
+        directory exists, skipping mkdir()')
+
     cmatrix_filename = os.getcwd() + "/" +\
         output_model_path + "/confusionmatrix.png"
     disp.figure_.savefig(cmatrix_filename)
