@@ -6,54 +6,47 @@
 - MacOS Monterey 12.4
 - Python version 3.8.13 installed using [mini-conda](https://github.com/conda-forge/miniforge)
 
-### File and Directories
+### Relevant Files and Directories
 
 ```
-├── apicalls.py
-├── app.py
+├── reset-and-run.py     Cleans the environment and runs everything
+├── apicalls.py          API client testing
+├── app.py               The API server
 ├── config.json          Global configuration
-├── deployment.py
-├── diagnostics.py
-├── fullprocess.py
+├── deployment.py        Model deployment
+├── diagnostics.py       Diags
+├── fullprocess.py       Run all the scripts
 ├── ingesteddata
-│   └── finaldata.csv     Results of data ingestion
-├── ingestedfiles.txt     Record keeping of data ingestion
-├── ingestion.py          Data ingestion script
-├── practicedata          Development data
+│   └── finaldata.csv    Results of data ingestion
+├── ingestedfiles.txt    Record keeping of data ingestion
+├── ingestion.py         Data ingestion script
+├── practicedata         Development data
 │   ├── dataset1.csv
-│   └── dataset2.csv
+│   └── dataset2.csv     Test data
 ├── reporting.py
-├── requirements.txt      Python dependencies
-├── scoring.py
+├── requirements.txt     Python dependencies
+├── scoring.py           Model performance
 ├── sourcedata
 │   ├── dataset3.csv
-│   └── dataset4.csv
+│   └── dataset4.csv     Production data
 ├── testdata
 │   └── testdata.csv
-├── training.py
-└── wsgi.py
+├── training.py          Model training
 ```
 
-### Steps
+### How to run the code
 
-#### 1) Data Ingestion
-
-Reads csv files and creates `ingestedfiles.txt` and `finaldata.csv`.
-
+Configure the python enviroment.
 ```
-cd project
-python ingestion.py
+pip install -r requirements.txt
 ```
 
-#### 2) Training, Scoring, and Deploying an ML Model
+Run the API server.
+```
+python app.py
+```
 
-#### 3) Model and Data Diagnostics
-
-#### 4) Reporting
-
-#### 5) Process Automation
-
-#### 6) Additional Tasks
-- PDF reports
-- Time Trends
-- Database setup
+Run the main shell script.
+```
+bash ./reset-and-run.sh
+```

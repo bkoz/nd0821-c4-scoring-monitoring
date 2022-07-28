@@ -17,13 +17,13 @@ with open('config.json', 'r') as f:
 
 logging.info("=> Configuration")
 dataset_csv_path = os.path.join(config['output_folder_path'])
-logging.info(f"dataset_csv_path = {dataset_csv_path}")
+logging.debug(f"dataset_csv_path = {dataset_csv_path}")
 test_data_path = os.path.join(config['test_data_path'])
-logging.info(f"test_data_path = {test_data_path}")
+logging.debug(f"test_data_path = {test_data_path}")
 prod_deployment_path = os.path.join(config['prod_deployment_path'])
-logging.info(f"prod_deployment_path = {prod_deployment_path}")
+logging.debug(f"prod_deployment_path = {prod_deployment_path}")
 output_folder_path = os.path.join(config['output_folder_path'])
-logging.info(f"output_folder_path = {output_folder_path}")
+logging.debug(f"output_folder_path = {output_folder_path}")
 
 
 def model_predictions(data_frame: pd.DataFrame) -> list:
@@ -110,10 +110,10 @@ def execution_time() -> list:
     # calculate timing of training.py and ingestion.py
     # return a list of 2 timing values in seconds
     training_t0 = time.time()
-    subprocess.run(['python3', 'training.py'], capture_output=True)
+    subprocess.run(['python', 'training.py'], capture_output=True)
     training_t1 = time.time()
     ingestion_t0 = time.time()
-    subprocess.run(['python3', 'ingestion.py'], capture_output=True)
+    subprocess.run(['python', 'ingestion.py'], capture_output=True)
     ingestion_t1 = time.time()
     elapsed_times_list = []
     elapsed_times_list.append(training_t1 - training_t0)
@@ -182,7 +182,7 @@ if __name__ == '__main__':
     logging.debug(f"dataset_filename = {dataset_filename}")
     dataset = pd.read_csv(dataset_filename)
     summary = dataframe_summary(dataset)
-    logging.info(f"summary = {summary}")
+    logging.debug(f"summary = {summary}")
     logging.info("=> Missing Data")
     percent_nas = missing_data(dataset)
     logging.info(f"=> percent_nas = {percent_nas}")

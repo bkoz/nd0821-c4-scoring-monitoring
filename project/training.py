@@ -30,8 +30,8 @@ def train_model():
                           'lastyear_activity',
                           'number_of_employees']].values.reshape(-1, 3)
     y = dataframe['exited'].values
-    logging.info(f"X = {X}")
-    logging.info(f"y = {y}")
+    logging.debug(f"X = {X}")
+    logging.debug(f"y = {y}")
 
     # use this logistic regression for training
     # BK - Changed multi_class from 'warn' to 'auto'.
@@ -61,7 +61,7 @@ def train_model():
     try:
         (os.mkdir(output_model_dir))
     except FileExistsError:
-        logging.info(f"{output_model_dir}\
+        logging.error(f"{output_model_dir}\
                      directory exists, skipping mkdir()")
     file_handle = open(output_model_path, 'wb')
     pickle.dump(model, file_handle)
