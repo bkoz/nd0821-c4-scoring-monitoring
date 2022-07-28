@@ -36,9 +36,25 @@
 
 ### How to run the code
 
-Configure the python enviroment.
+
+Configure the python enviroment. You need a native python 3.8
+support from your OS or use Conda to install one.
+
+The pip method.
+
+Check python
 ```
-pip install -r requirements.txt
+python --version
+```
+```
+Python 3.8.12
+```
+
+Build the4 environment.
+```
+python -m venv venv
+source activate venv/bin/activate
+pip install flask pandas sklearn matplotlib requests
 ```
 
 Run the API server.
