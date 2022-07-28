@@ -50,7 +50,7 @@ python --version
 Python 3.8.12
 ```
 
-Build the4 environment.
+Build the environment.
 ```
 python -m venv venv
 source activate venv/bin/activate
